@@ -8,9 +8,15 @@ import UIKit
 import youtube_ios_player_helper
 import InstantSearchVoiceOverlay
 import AVFoundation
+import GoogleAPIClientForREST
+import GoogleSignIn
 import RMYouTubeExtractor
 
-class ViewController: UIViewController, VoiceOverlayDelegate, YTPlayerViewDelegate, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
+class ViewController: UIViewController, VoiceOverlayDelegate, YTPlayerViewDelegate, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate,GIDSignInDelegate, GIDSignInUIDelegate {
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
+        
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
     }
@@ -71,9 +77,7 @@ class ViewController: UIViewController, VoiceOverlayDelegate, YTPlayerViewDelega
         return id
         }
     }
-    
 
-//
 //    func performGetRequest(targetURL: NSURL!, completion: ((data: NSData?, HTTPStatusCode: Int, error: NSError?)) -> Void) {
 //        let request = NSMutableURLRequest(URL: "www.google.com")
 //        request.HTTPMethod = "GET"
