@@ -27,19 +27,28 @@ class ViewController: UIViewController, VoiceOverlayDelegate, YTPlayerViewDelega
     func recording(text: String?, final: Bool?, error: Error?) {
     }
     @IBOutlet weak var tblVideos: UITableView!
+    
     @IBOutlet weak var segDisplayedContent: UISegmentedControl!
+    
     @IBOutlet weak var viewWait: UIView!
+    
     @IBOutlet weak var txtSearch: UITextField!
     
-    var videosArray: Array<Dictionary<NSObject, AnyObject>> = []
-   
     var apiKey = "AIzaSyDyomRq-6lS5Y9a0j6LLx6pH_8h_YboWt8"
-     
     var desiredChannelsArray = ["Apple", "Google", "Microsoft"]
+        
+        var channelIndex = 0
+        
+        var channelsDataArray: Array<Dictionary<NSObject, AnyObject>> = []
+        
+        var videosArray: Array<Dictionary<NSObject, AnyObject>> = []
+        
+        var selectedVideoIndex: Int!
+
      
-    var channelIndex = 0
+
      
-    var channelsDataArray: Array<Dictionary<NSObject, AnyObject>> = []
+
 
     let voiceOverlay = VoiceOverlayController()
     @IBOutlet var playerView: YTPlayerView!
