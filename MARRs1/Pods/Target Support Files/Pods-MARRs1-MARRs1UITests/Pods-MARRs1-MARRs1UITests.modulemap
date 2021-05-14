@@ -1,0 +1,6 @@
+framework module Pods_MARRs1_MARRs1UITests {
+  umbrella header "Pods-MARRs1-MARRs1UITests-umbrella.h"
+
+  export *
+  module * { export * }
+}
