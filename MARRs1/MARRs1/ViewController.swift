@@ -32,7 +32,7 @@ class ViewController: UIViewController, VoiceOverlayDelegate, YTPlayerViewDelega
         voiceOverlay.start(on: self, textHandler: { text, final, _ in
             if final {
                 print("Final text: \(text)")
-                let userWords = "\(text)"
+                let userFrases = "\(text)"
                 
                 self.playerView.load(withVideoId: "oKtrHy0ERNA", playerVars: ["playsinline" : 1])
             }
