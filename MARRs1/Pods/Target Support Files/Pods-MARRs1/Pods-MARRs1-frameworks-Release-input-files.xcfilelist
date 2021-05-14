@@ -1,3 +1,7 @@
 ${PODS_ROOT}/Target Support Files/Pods-MARRs1/Pods-MARRs1-frameworks.sh
+${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework
+${BUILT_PRODUCTS_DIR}/GoogleAPIClientForREST/GoogleAPIClientForREST.framework
+${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework
 ${BUILT_PRODUCTS_DIR}/InstantSearchVoiceOverlay/InstantSearchVoiceOverlay.framework
+${BUILT_PRODUCTS_DIR}/RMYouTubeExtractor/RMYouTubeExtractor.framework
 ${BUILT_PRODUCTS_DIR}/youtube-ios-player-helper/youtube_ios_player_helper.framework
