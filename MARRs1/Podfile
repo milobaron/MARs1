@@ -10,6 +10,7 @@ pod 'Google/SignIn', '~> 3.0.3'
 pod 'RMYouTubeExtractor'
 pod 'InstantSearchVoiceOverlay'
 pod 'youtube-ios-player-helper'
+pod 'RAMAnimatedTabBarController'
   target 'MARRs1Tests' do
     inherit! :search_paths
     # Pods for testing

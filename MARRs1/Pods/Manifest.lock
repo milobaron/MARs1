@@ -37,6 +37,7 @@ PODS:
   - GTMSessionFetcher/Full (1.5.0):
     - GTMSessionFetcher/Core (= 1.5.0)
   - InstantSearchVoiceOverlay (1.2.0)
+  - RAMAnimatedTabBarController (5.2.0)
   - RMYouTubeExtractor (0.3)
   - youtube-ios-player-helper (1.0.3)
 
@@ -44,6 +45,7 @@ DEPENDENCIES:
   - Google/SignIn (~> 3.0.3)
   - GoogleAPIClientForREST/YouTube (~> 1.2.1)
   - InstantSearchVoiceOverlay
+  - RAMAnimatedTabBarController
   - RMYouTubeExtractor
   - youtube-ios-player-helper
 
@@ -58,6 +60,7 @@ SPEC REPOS:
     - GoogleToolboxForMac
     - GTMSessionFetcher
     - InstantSearchVoiceOverlay
+    - RAMAnimatedTabBarController
     - RMYouTubeExtractor
     - youtube-ios-player-helper
 
@@ -71,9 +74,10 @@ SPEC CHECKSUMS:
   GoogleToolboxForMac: 471e0c05d39506e50e6398f46fa9a12ae0efeff9
   GTMSessionFetcher: b3503b20a988c4e20cc189aa798fd18220133f52
   InstantSearchVoiceOverlay: d9d5db7314ec8416dcf4ed49df2000e8ee0abe2b
+  RAMAnimatedTabBarController: 6863a386e7ae2ab227cd60aa73ab8ff56cdacfdd
   RMYouTubeExtractor: 4de4965347d86549c1f4904113be33b0deee697a
   youtube-ios-player-helper: 0185c57db23c80d63d6ca11251d110abb8a4ca61
 
-PODFILE CHECKSUM: 842a52f01bea794d862df7d712617ab021be8e64
+PODFILE CHECKSUM: bd55d7e71839c6d5bed57ca44dd5ec073b1a3823
 
 COCOAPODS: 1.10.1
