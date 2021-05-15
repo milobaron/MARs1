@@ -16,7 +16,16 @@ final class APICaller {
     }
     private init() {}
     
-    public func getAllCryptoData(completion: @escaping (Result<[Crypto], Error>) -> Void) {
+    public var icons: [Icon] = []
+    
+    private var whenReadyBlock: ((Result<[Crypto], Error>) -> Void)?
+    
+    public func getAllCryptoData
+    (completion: @escaping (Result<[Crypto], Error>) -> Void) {
+        guard icons.isEmpty else {
+            whenReadyBlock = completion
+            return
+        }
         guard let url = URL(string: Constants.assetsEndpoint + "?apikey="+Constants.apiKey) else {
            return
         }
@@ -27,7 +36,10 @@ final class APICaller {
             do {
                 // decode response
                 let cryptos = try JSONDecoder().decode([Crypto].self, from: data)
-                completion(.success(cryptos))
+                completion(.success( cryptos.sorted {first, second -> Bool in
+                    return first.price_usd ?? 0 > second.price_usd ?? 0
+                    
+                }))
             }
             catch {
                 completion(.failure(error))
@@ -40,17 +52,19 @@ final class APICaller {
         else {
             return
         }
-        let task = URLSession.shared.dataTask(with: url) { data, _, error in
+        let task = URLSession.shared.dataTask(with: url) { [weak self] data, _, error in
             guard let data = data, error == nil else {
                 return
             }
             do {
                 // decode response
-                let cryptos = try JSONDecoder().decode([Crypto].self, from: data)
-                completion(.success(cryptos))
+                self?.icons = try JSONDecoder().decode([Icon].self, from: data)
+                if let completion = self?.whenReadyBlock {
+                self?.getAllCryptoData(completion: completion)
+                }
             }
             catch {
-                completion(.failure(error))
+                print("RED ALERT MF \(error)")
             }
         }
         task.resume()
