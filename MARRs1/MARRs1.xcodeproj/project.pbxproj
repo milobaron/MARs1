@@ -17,6 +17,8 @@
 		8764264C264B71EC0053A37E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8764264A264B71EC0053A37E /* LaunchScreen.storyboard */; };
 		87642657264B71ED0053A37E /* MARRs1Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87642656264B71ED0053A37E /* MARRs1Tests.swift */; };
 		87642662264B71ED0053A37E /* MARRs1UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87642661264B71ED0053A37E /* MARRs1UITests.swift */; };
+		87B98DA3264FE540009ED0E1 /* APICaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B98DA2264FE540009ED0E1 /* APICaller.swift */; };
+		87B98DA5264FE850009ED0E1 /* CryptoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B98DA4264FE850009ED0E1 /* CryptoTableViewCell.swift */; };
 		964BD5DD2DA339FC6C2CF180 /* Pods_MARRs1_MARRs1UITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4F24A4EE5D73E32628605AE /* Pods_MARRs1_MARRs1UITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -55,6 +57,9 @@
 		8764265D264B71ED0053A37E /* MARRs1UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MARRs1UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		87642661264B71ED0053A37E /* MARRs1UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MARRs1UITests.swift; sourceTree = "<group>"; };
 		87642663264B71ED0053A37E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		87B98DA2264FE540009ED0E1 /* APICaller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APICaller.swift; sourceTree = "<group>"; };
+		87B98DA4264FE850009ED0E1 /* CryptoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoTableViewCell.swift; sourceTree = "<group>"; };
+		87B98DA6264FF1AB009ED0E1 /* example.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = example.storyboard; path = /Users/mikeveson/Desktop/projects/src/MARs1/MARRs1/MARRs1/example.storyboard; sourceTree = "<absolute>"; };
 		9A3845484130EB9BD706BD8C /* Pods_MARRs1.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MARRs1.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4F24A4EE5D73E32628605AE /* Pods_MARRs1_MARRs1UITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MARRs1_MARRs1UITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD1B988DC10DBAF58F106831 /* Pods-MARRs1Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MARRs1Tests.release.xcconfig"; path = "Target Support Files/Pods-MARRs1Tests/Pods-MARRs1Tests.release.xcconfig"; sourceTree = "<group>"; };
@@ -139,13 +144,16 @@
 		8764263E264B71EC0053A37E /* MARRs1 */ = {
 			isa = PBXGroup;
 			children = (
+				87B98DA6264FF1AB009ED0E1 /* example.storyboard */,
 				8764263F264B71EC0053A37E /* AppDelegate.swift */,
 				87642641264B71EC0053A37E /* SceneDelegate.swift */,
 				87642643264B71EC0053A37E /* ViewController.swift */,
+				87B98DA4264FE850009ED0E1 /* CryptoTableViewCell.swift */,
 				87642645264B71EC0053A37E /* Main.storyboard */,
 				87642648264B71EC0053A37E /* Assets.xcassets */,
 				8764264A264B71EC0053A37E /* LaunchScreen.storyboard */,
 				8764264D264B71EC0053A37E /* Info.plist */,
+				87B98DA2264FE540009ED0E1 /* APICaller.swift */,
 			);
 			path = MARRs1;
 			sourceTree = "<group>";
@@ -445,6 +453,8 @@
 				87642644264B71EC0053A37E /* ViewController.swift in Sources */,
 				87642640264B71EC0053A37E /* AppDelegate.swift in Sources */,
 				87642642264B71EC0053A37E /* SceneDelegate.swift in Sources */,
+				87B98DA5264FE850009ED0E1 /* CryptoTableViewCell.swift in Sources */,
+				87B98DA3264FE540009ED0E1 /* APICaller.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

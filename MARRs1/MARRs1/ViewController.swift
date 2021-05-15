@@ -14,22 +14,14 @@
     import RAMAnimatedTabBarController
 
 class ViewController: UIViewController, VoiceOverlayDelegate, YTPlayerViewDelegate, GIDSignInDelegate, GIDSignInUIDelegate {
+    
+    
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
     }
     
     func recording(text: String?, final: Bool?, error: Error?) {
     }
     
-    var videosArray: Array<Dictionary<NSObject, AnyObject>> = []
-   
-    var apiKey = "AIzaSyDyomRq-6lS5Y9a0j6LLx6pH_8h_YboWt8"
-     
-    var desiredChannelsArray = ["Apple", "Google", "Microsoft"]
-     
-    var channelIndex = 0
-     
-    var channelsDataArray: Array<Dictionary<NSObject, AnyObject>> = []
-
     let voiceOverlay = VoiceOverlayController()
     @IBOutlet var playerView: YTPlayerView!
     @IBOutlet var button: UIButton!
@@ -41,9 +33,8 @@ class ViewController: UIViewController, VoiceOverlayDelegate, YTPlayerViewDelega
     
     override func viewDidLoad(){
         super.viewDidLoad()
-//        playerView.delegate = self
         button1.roundCorners()
-//        playerView.load(withVideoId: "1InIKzeGKtY", playerVars: ["playsinline" : 1])
+       
     }
     func playerViewDidBecomeReady(_ playerView: YTPlayerView) {
         playerView.playVideo()
@@ -63,7 +54,6 @@ class ViewController: UIViewController, VoiceOverlayDelegate, YTPlayerViewDelega
         voiceOverlay.start(on: self, textHandler: { text, final, _ in
             if final {
                 print("Final text: \(text)")
-                let userWords = "\(text)"
                 self.playerView.load(withVideoId: "_S7r9MCc2ts", playerVars: ["playsinline" : 1])
             }
                 
@@ -79,18 +69,38 @@ class ViewController: UIViewController, VoiceOverlayDelegate, YTPlayerViewDelega
 //        return item.id.videoId
 //        }
     }
-class CustomTabBarController: RAMAnimatedTabBarController{
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        configure()
-    }
-    func configure() {
+    class CustomTabBarController: RAMAnimatedTabBarController, UITableViewDelegate, UITableViewDataSource  {
         let vc1 = UIViewController()
         let vc2 = UIViewController()
         let vc3 = UIViewController()
         let vc4 = UIViewController()
         let vc5 = UIViewController()
         
+        override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        configure()
+    }
+    private let tableView: UITableView = {
+        let tableView = UITableView(frame: .zero, style: .grouped)
+        tableView.register(CryptoTableViewCell.self, forCellReuseIdentifier: CryptoTableViewCell.identifier)
+        return tableView
+    }()
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        tableView.frame = vc2.view.bounds
+    }
+        @objc func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 10
+    }
+        @objc(tableView:cellForRowAtIndexPath:) func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: CryptoTableViewCell.identifier, for: indexPath) as? CryptoTableViewCell else {
+            fatalError()
+        }
+        cell.textLabel?.text = "Hello World"
+        return cell
+    }
+    func configure() {
         vc1.view.backgroundColor = .init(red: 18/255.0, green: 190/255.0, blue: 93/255.0, alpha: 1.0)
         vc2.view.backgroundColor = .init(red: 234/255.0, green: 202/255.0, blue: 46/255.0, alpha: 1.0)
         vc3.view.backgroundColor = .systemRed
@@ -114,6 +124,19 @@ class CustomTabBarController: RAMAnimatedTabBarController{
 
         setViewControllers([vc1, vc2, vc3, vc4, vc5], animated: false)
         
+        
+        // vc1 info
+        
+        
+        // vc2 info
+        tableView.dataSource = self
+        tableView.delegate = self
+        
+        // vc3 info
+        vc3.title = "News"
+        // vc4 info
+        
+        // vc5 info
     }
 }
 public extension UIView {
