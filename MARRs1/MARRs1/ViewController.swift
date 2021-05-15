@@ -3,7 +3,7 @@
 //  mars2
 //
 //  Created by Mike Veson on 5/11/21.
-//
+
     import UIKit
     import youtube_ios_player_helper
     import InstantSearchVoiceOverlay
@@ -40,10 +40,11 @@ class ViewController: UIViewController, VoiceOverlayDelegate, YTPlayerViewDelega
     override func viewDidLoad(){
         super.viewDidLoad()
         playerView.delegate = self
-        view.backgroundColor = .systemRed
+            
+        view.backgroundColor = .init(red: 0.114, green: 0.314, blue: 0.819, alpha: 1)
         playerView.load(withVideoId: "1InIKzeGKtY", playerVars: ["playsinline" : 1])
-        button.backgroundColor = .systemBlue
-        button.setTitleColor(.white, for: .normal)
+        button.backgroundColor = .white
+        button.setTitleColor(.black, for: .normal)
     }
     func playerViewDidBecomeReady(_ playerView: YTPlayerView) {
         playerView.playVideo()
