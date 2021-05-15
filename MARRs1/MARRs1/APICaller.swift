@@ -27,7 +27,10 @@ final class APICaller {
             do {
                 // decode response
                 let cryptos = try JSONDecoder().decode([Crypto].self, from: data)
-                completion(.success(cryptos))
+                completion(.success( cryptos.sorted {first, second -> Bool in
+                                    return first.price_usd ?? 0 > second.price_usd ?? 0
+
+                                }))
             }
             catch {
                 completion(.failure(error))
@@ -35,26 +38,6 @@ final class APICaller {
         }
         task.resume()
     }
-    public func getAllIcons(){
-        guard let url = URL(string: "https://rest.coinapi.io/v1/assets/icons/55/?apikey=2AFC2D13-A14B-44CA-AD1E-A891C042EAB4")
-        else {
-            return
-        }
-        let task = URLSession.shared.dataTask(with: url) { data, _, error in
-            guard let data = data, error == nil else {
-                return
-            }
-            do {
-                // decode response
-                let cryptos = try JSONDecoder().decode([Crypto].self, from: data)
-                completion(.success(cryptos))
-            }
-            catch {
-                completion(.failure(error))
-            }
-        }
-        task.resume()
-    }
-    
-    }
+   
+}
 
