@@ -40,6 +40,7 @@ class ViewController: UIViewController, VoiceOverlayDelegate, YTPlayerViewDelega
     override func viewDidLoad(){
         super.viewDidLoad()
         playerView.delegate = self
+        view.backgroundColor = .systemRed
         playerView.load(withVideoId: "1InIKzeGKtY", playerVars: ["playsinline" : 1])
         button.backgroundColor = .systemBlue
         button.setTitleColor(.white, for: .normal)
@@ -51,14 +52,14 @@ class ViewController: UIViewController, VoiceOverlayDelegate, YTPlayerViewDelega
         voiceOverlay.delegate = self
         voiceOverlay.settings.autoStart=false
         voiceOverlay.settings.autoStop=true
-        voiceOverlay.settings.autoStopTimeout=5
+        voiceOverlay.settings.autoStopTimeout=2
         voiceOverlay.start(on: self, textHandler: { text, final, _ in
             if final {
                 print("Final text: \(text)")
                 let userWords = "\(text)"
                 // _S7r9MCc2ts
 //                let vidId = self.searchByKeyword(s: userWords)
-                self.playerView.load(withVideoId: userWords, playerVars: ["playsinline" : 1])
+                self.playerView.load(withVideoId: "_S7r9MCc2ts", playerVars: ["playsinline" : 1])
             }
                 
         }, errorHandler: { error in
