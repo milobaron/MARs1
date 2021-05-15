@@ -15,7 +15,6 @@
 
 class ViewController: UIViewController, VoiceOverlayDelegate, YTPlayerViewDelegate, GIDSignInDelegate, GIDSignInUIDelegate {
     
-    
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
     }
     
@@ -34,7 +33,6 @@ class ViewController: UIViewController, VoiceOverlayDelegate, YTPlayerViewDelega
     override func viewDidLoad(){
         super.viewDidLoad()
         button1.roundCorners()
-       
     }
     func playerViewDidBecomeReady(_ playerView: YTPlayerView) {
         playerView.playVideo()
@@ -70,6 +68,8 @@ class ViewController: UIViewController, VoiceOverlayDelegate, YTPlayerViewDelega
 //        }
     }
     class CustomTabBarController: RAMAnimatedTabBarController, UITableViewDelegate, UITableViewDataSource  {
+        
+        private var viewModels = [CryptoTableViewCellViewModel]()
         let vc1 = UIViewController()
         let vc2 = UIViewController()
         let vc3 = UIViewController()
@@ -78,8 +78,10 @@ class ViewController: UIViewController, VoiceOverlayDelegate, YTPlayerViewDelega
         
         override func viewDidLoad() {
         super.viewDidLoad()
-        
         configure()
+        configureVC2()
+       
+        
     }
     private let tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
@@ -91,14 +93,49 @@ class ViewController: UIViewController, VoiceOverlayDelegate, YTPlayerViewDelega
         tableView.frame = vc2.view.bounds
     }
         @objc func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+            return viewModels.count
     }
         @objc(tableView:cellForRowAtIndexPath:) func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: CryptoTableViewCell.identifier, for: indexPath) as? CryptoTableViewCell else {
             fatalError()
         }
-        cell.textLabel?.text = "Hello World"
+            cell.configure(with: viewModels[indexPath.row])
         return cell
+    }
+        
+        func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+            return 70
+        }
+        static let numberFormatter: NumberFormatter = {
+           let formatter = NumberFormatter()
+            formatter.locale = .current
+            formatter.allowsFloats = true
+            formatter.formatterBehavior = .default
+            formatter.numberStyle = .currency
+            return formatter
+        }()
+    func configureVC2() {
+        vc2.view.addSubview(tableView)
+        APICaller.shared.getAllCryptoData{ [weak self] result in
+            switch result {
+            case .success(let models):
+                print ("works so far")
+                self?.viewModels = models.compactMap({
+                    // num formatter
+                    
+                    let price = $0.price_usd ?? 0
+                    let formatter = CustomTabBarController.numberFormatter
+                    let priceString = formatter.string(from: NSNumber(value: price))
+                    return CryptoTableViewCellViewModel(name: $0.name ?? "N/A", symbol: $0.asset_id, price: priceString ?? "N/A"
+                    )
+                })
+                DispatchQueue.main.async {
+                    self?.tableView.reloadData()
+                }
+            case .failure(let error):
+                print("RED ALERT MF \(error)")
+            }
+        }
     }
     func configure() {
         vc1.view.backgroundColor = .init(red: 18/255.0, green: 190/255.0, blue: 93/255.0, alpha: 1.0)

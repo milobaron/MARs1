@@ -1,4 +1,9 @@
 PODS:
+  - Firebase/Analytics (3.17.0):
+    - Firebase/Core
+  - Firebase/Core (3.17.0):
+    - FirebaseAnalytics (= 3.9.0)
+    - FirebaseCore (= 3.6.0)
   - FirebaseAnalytics (3.9.0):
     - FirebaseCore (~> 3.6)
     - FirebaseInstanceID (~> 1.0)
@@ -42,6 +47,7 @@ PODS:
   - youtube-ios-player-helper (1.0.3)
 
 DEPENDENCIES:
+  - Firebase/Analytics
   - Google/SignIn (~> 3.0.3)
   - GoogleAPIClientForREST/YouTube (~> 1.2.1)
   - InstantSearchVoiceOverlay
@@ -51,6 +57,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - Firebase
     - FirebaseAnalytics
     - FirebaseCore
     - FirebaseInstanceID
@@ -65,6 +72,7 @@ SPEC REPOS:
     - youtube-ios-player-helper
 
 SPEC CHECKSUMS:
+  Firebase: 4b66b5b59c43edac745b87f0c87e42cdd0279c13
   FirebaseAnalytics: e5fe8486efc01bec33f6bf82e2fa9fce4b124052
   FirebaseCore: 9691ee2ade70c098d7cf92440f4303f16d83ca75
   FirebaseInstanceID: b9eedd6846fb5e1f0f7279e1deaa7a7e4cf8392e
@@ -78,6 +86,6 @@ SPEC CHECKSUMS:
   RMYouTubeExtractor: 4de4965347d86549c1f4904113be33b0deee697a
   youtube-ios-player-helper: 0185c57db23c80d63d6ca11251d110abb8a4ca61
 
-PODFILE CHECKSUM: bd55d7e71839c6d5bed57ca44dd5ec073b1a3823
+PODFILE CHECKSUM: 0ce8a2b9c41f4277403c090f1a029b368660ab68
 
 COCOAPODS: 1.10.1
