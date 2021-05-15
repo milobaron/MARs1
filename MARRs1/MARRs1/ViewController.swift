@@ -77,11 +77,11 @@ class ViewController: UIViewController, VoiceOverlayDelegate, YTPlayerViewDelega
         let vc5 = UIViewController()
         
         override func viewDidLoad() {
-        print("test")
         super.viewDidLoad()
         configure()
         configureVC2()
-        print("test")
+       
+        
     }
     private let tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
@@ -115,29 +115,18 @@ class ViewController: UIViewController, VoiceOverlayDelegate, YTPlayerViewDelega
             return formatter
         }()
     func configureVC2() {
-        print("is it in?")
         vc2.view.addSubview(tableView)
         APICaller.shared.getAllCryptoData{ [weak self] result in
-            print ("got all data \(result)")
             switch result {
             case .success(let models):
                 print ("works so far")
-                self?.viewModels = models.compactMap({ model in
+                self?.viewModels = models.compactMap({
                     // num formatter
                     
-                    let price = model.price_usd ?? 0
+                    let price = $0.price_usd ?? 0
                     let formatter = CustomTabBarController.numberFormatter
                     let priceString = formatter.string(from: NSNumber(value: price))
-                    
-                    let iconUrl = URL(string: APICaller.shared.icons.filter({ icon in
-                        icon.asset_id == model.asset_id
-                    }).first?.url ?? "")
-                    
-                    return CryptoTableViewCellViewModel(
-                        name: model.name ?? "N/A",
-                        symbol: model.asset_id,
-                        price: priceString ?? "N/A",
-                        iconUrl: iconUrl
+                    return CryptoTableViewCellViewModel(name: $0.name ?? "N/A", symbol: $0.asset_id, price: priceString ?? "N/A"
                     )
                 })
                 DispatchQueue.main.async {

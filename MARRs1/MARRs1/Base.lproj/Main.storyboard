@@ -38,7 +38,6 @@
                                 <fontDescription key="fontDescription" name="Optima-Regular" family="Optima" pointSize="34"/>
                                 <state key="normal" title="Main Menu">
                                     <color key="titleColor" systemColor="labelColor"/>
-                                    <color key="titleShadowColor" systemColor="labelColor"/>
                                 </state>
                                 <connections>
                                     <action selector="didPressButton" destination="N7G-kS-8lQ" eventType="touchUpInside" id="WPW-ei-CEF"/>
