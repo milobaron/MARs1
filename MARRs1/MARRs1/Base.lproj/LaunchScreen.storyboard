@@ -21,6 +21,22 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="tintColor" systemColor="systemBackgroundColor"/>
                             </imageView>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="By Mike, Ava, and Rohan" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="htS-eL-H3C">
+                                <rect key="frame" x="112" y="813" width="191" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="linkColor"/>
+                                <color key="textColor" systemColor="secondarySystemBackgroundColor"/>
+                                <fontDescription key="fontDescription" name="Optima-Regular" family="Optima" pointSize="16"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="MARs1 " textAlignment="center" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="AJD-Up-anv">
+                                <rect key="frame" x="64" y="771" width="286" height="47"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="linkColor"/>
+                                <color key="textColor" systemColor="secondarySystemBackgroundColor"/>
+                                <fontDescription key="fontDescription" name="Optima-Regular" family="Optima" pointSize="49"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="linkColor"/>
@@ -35,6 +51,9 @@
         <image name="circle.grid.hex.fill" catalog="system" width="128" height="112"/>
         <systemColor name="linkColor">
             <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="secondarySystemBackgroundColor">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

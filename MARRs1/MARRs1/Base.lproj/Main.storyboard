@@ -16,39 +16,28 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HVg-HM-qqz">
-                                <rect key="frame" x="20" y="49" width="374" height="55"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="55" id="xdV-J1-ZXD"/>
-                                </constraints>
-                                <state key="normal" title="Start Dictation"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KdW-ss-SyI">
+                                <rect key="frame" x="70" y="716" width="274" height="84"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBlueColor"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle0"/>
+                                <state key="normal" title="Open Menu">
+                                    <color key="titleColor" systemColor="secondarySystemBackgroundColor"/>
+                                </state>
                                 <connections>
-                                    <action selector="didTapButton" destination="BYZ-38-t0r" eventType="touchUpInside" id="8OD-fo-bVe"/>
+                                    <action selector="didPressButton" destination="BYZ-38-t0r" eventType="touchUpInside" id="fie-4T-SLR"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IE8-FU-G48" customClass="YTPlayerView">
-                                <rect key="frame" x="0.0" y="114" width="414" height="300"/>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="240" id="6eq-0O-Qbk"/>
-                                    <constraint firstAttribute="height" constant="300" id="Hez-3p-PJy"/>
-                                </constraints>
-                            </view>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="app" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="2q0-50-GpZ">
+                                <rect key="frame" x="85" y="84" width="245" height="167"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="IE8-FU-G48" secondAttribute="trailing" id="3r7-pv-vyg"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="HVg-HM-qqz" secondAttribute="trailing" constant="20" id="5RL-cb-gdD"/>
-                            <constraint firstItem="HVg-HM-qqz" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="Vwv-Zm-Yi9"/>
-                            <constraint firstItem="HVg-HM-qqz" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="5" id="ZTK-fr-lfR"/>
-                            <constraint firstItem="IE8-FU-G48" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="eIZ-37-XEj"/>
-                            <constraint firstItem="IE8-FU-G48" firstAttribute="top" secondItem="HVg-HM-qqz" secondAttribute="bottom" constant="10" id="rb6-ph-y3X"/>
-                        </constraints>
                     </view>
                     <connections>
-                        <outlet property="button" destination="HVg-HM-qqz" id="SfF-hm-WL7"/>
-                        <outlet property="playerView" destination="IE8-FU-G48" id="Nnh-K3-oZz"/>
+                        <outlet property="button1" destination="KdW-ss-SyI" id="wHe-B3-CAO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -57,8 +46,15 @@
         </scene>
     </scenes>
     <resources>
+        <image name="app" catalog="system" width="128" height="114"/>
+        <systemColor name="secondarySystemBackgroundColor">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBlueColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
