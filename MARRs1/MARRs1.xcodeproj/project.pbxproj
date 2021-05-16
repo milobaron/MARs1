@@ -18,6 +18,7 @@
 		8764264C264B71EC0053A37E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8764264A264B71EC0053A37E /* LaunchScreen.storyboard */; };
 		87642657264B71ED0053A37E /* MARRs1Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87642656264B71ED0053A37E /* MARRs1Tests.swift */; };
 		87642662264B71ED0053A37E /* MARRs1UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87642661264B71ED0053A37E /* MARRs1UITests.swift */; };
+		8788ECCE2650AE04005F4D59 /* NewsAPICaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8788ECCD2650AE04005F4D59 /* NewsAPICaller.swift */; };
 		87B98DA3264FE540009ED0E1 /* APICaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B98DA2264FE540009ED0E1 /* APICaller.swift */; };
 		87B98DA5264FE850009ED0E1 /* CryptoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B98DA4264FE850009ED0E1 /* CryptoTableViewCell.swift */; };
 		964BD5DD2DA339FC6C2CF180 /* Pods_MARRs1_MARRs1UITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4F24A4EE5D73E32628605AE /* Pods_MARRs1_MARRs1UITests.framework */; };
@@ -59,6 +60,7 @@
 		8764265D264B71ED0053A37E /* MARRs1UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MARRs1UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		87642661264B71ED0053A37E /* MARRs1UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MARRs1UITests.swift; sourceTree = "<group>"; };
 		87642663264B71ED0053A37E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8788ECCD2650AE04005F4D59 /* NewsAPICaller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsAPICaller.swift; sourceTree = "<group>"; };
 		87B98DA2264FE540009ED0E1 /* APICaller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APICaller.swift; sourceTree = "<group>"; };
 		87B98DA4264FE850009ED0E1 /* CryptoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoTableViewCell.swift; sourceTree = "<group>"; };
 		9A3845484130EB9BD706BD8C /* Pods_MARRs1.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MARRs1.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -155,6 +157,7 @@
 				8764264A264B71EC0053A37E /* LaunchScreen.storyboard */,
 				8764264D264B71EC0053A37E /* Info.plist */,
 				87B98DA2264FE540009ED0E1 /* APICaller.swift */,
+				8788ECCD2650AE04005F4D59 /* NewsAPICaller.swift */,
 			);
 			path = MARRs1;
 			sourceTree = "<group>";
@@ -455,6 +458,7 @@
 				87642640264B71EC0053A37E /* AppDelegate.swift in Sources */,
 				87642642264B71EC0053A37E /* SceneDelegate.swift in Sources */,
 				874C98BE2650410E00A145F6 /* Models.swift in Sources */,
+				8788ECCE2650AE04005F4D59 /* NewsAPICaller.swift in Sources */,
 				87B98DA5264FE850009ED0E1 /* CryptoTableViewCell.swift in Sources */,
 				87B98DA3264FE540009ED0E1 /* APICaller.swift in Sources */,
 			);

@@ -70,17 +70,17 @@ class ViewController: UIViewController, VoiceOverlayDelegate, YTPlayerViewDelega
     class CustomTabBarController: RAMAnimatedTabBarController, UITableViewDelegate, UITableViewDataSource  {
         
         private var viewModels = [CryptoTableViewCellViewModel]()
-        let vc1 = UIViewController()
-        let vc2 = UIViewController()
-        let vc3 = UIViewController()
-        let vc4 = UIViewController()
-        let vc5 = UIViewController()
+        let vc1 = UIViewController() // stocks
+        let vc2 = UIViewController() // crypto
+        let vc3 = UIViewController() // news
+        let vc4 = UIViewController() // weather
+        let vc5 = UIViewController() // music
         
         override func viewDidLoad() {
         super.viewDidLoad()
         configure()
         configureVC2()
-       
+        configureVC3()
         
     }
     private let tableView: UITableView = {
@@ -114,6 +114,17 @@ class ViewController: UIViewController, VoiceOverlayDelegate, YTPlayerViewDelega
             formatter.numberStyle = .currency
             return formatter
         }()
+        
+    func configureVC3(){
+        NewsAPICaller.shared.getTopStories { result in
+            switch result {
+            case .success (let response):
+                break
+            case .failure(let error):
+                print("RED ALERT MF \(error)")
+            }
+        }
+        }
     func configureVC2() {
         vc2.view.addSubview(tableView)
         APICaller.shared.getAllCryptoData{ [weak self] result in
