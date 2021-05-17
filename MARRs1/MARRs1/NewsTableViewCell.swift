@@ -3,7 +3,6 @@
 //  MARRs1
 //
 //  Created by Mike Veson on 5/16/21.
-//
 
 import UIKit
 
@@ -65,7 +64,7 @@ class NewsTableViewCell: UITableViewCell {
             newsImageView.image = UIImage(data: data)
         }
         else {
-            
+            // fetch image
         }
         
     }

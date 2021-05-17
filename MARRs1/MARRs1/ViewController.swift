@@ -4,14 +4,14 @@
 //
 //  Created by Mike Veson on 5/11/21.
 
-    import UIKit
-    import youtube_ios_player_helper
-    import InstantSearchVoiceOverlay
-    import AVFoundation
-    import GoogleAPIClientForREST
-    import GoogleSignIn
-    import RMYouTubeExtractor
-    import RAMAnimatedTabBarController
+import UIKit
+import youtube_ios_player_helper
+import InstantSearchVoiceOverlay
+import AVFoundation
+import GoogleAPIClientForREST
+import GoogleSignIn
+import RMYouTubeExtractor
+import RAMAnimatedTabBarController
 
 class ViewController: UIViewController, VoiceOverlayDelegate, YTPlayerViewDelegate, GIDSignInDelegate, GIDSignInUIDelegate {
     
@@ -28,7 +28,7 @@ class ViewController: UIViewController, VoiceOverlayDelegate, YTPlayerViewDelega
     @IBOutlet weak var tblVideos: UITableView!
     @IBOutlet weak var segDisplayedContent: UISegmentedControl!
     @IBOutlet weak var viewWait: UIView!
-        @IBOutlet weak var txtSearch: UITextField!
+    @IBOutlet weak var txtSearch: UITextField!
     
     override func viewDidLoad(){
         super.viewDidLoad()
@@ -54,89 +54,129 @@ class ViewController: UIViewController, VoiceOverlayDelegate, YTPlayerViewDelega
                 print("Final text: \(text)")
                 self.playerView.load(withVideoId: "_S7r9MCc2ts", playerVars: ["playsinline" : 1])
             }
-                
+            
         }, errorHandler: { error in
             
         })
-        
     }
-    }
-    class CustomTabBarController: RAMAnimatedTabBarController, UITableViewDelegate, UITableViewDataSource  {
-        
-        private var viewModels = [CryptoTableViewCellViewModel]()
-        private var newsViewModels = [NewsTableViewCellViewModel]()
-        
-        let vc1 = UIViewController() // stocks
-        let vc2 = UIViewController() // crypto
-        let vc3 = UIViewController() // news
-        let vc4 = UIViewController() // weather
-        let vc5 = UIViewController() // music
-        
-        override func viewDidLoad() {
+}
+class CustomTabBarController: RAMAnimatedTabBarController, UITableViewDelegate, UITableViewDataSource  {
+    
+    private var viewModels = [CryptoTableViewCellViewModel]()
+    private var newsViewModels = [NewsTableViewCellViewModel]()
+    
+    let vc1 = UIViewController() // stocks
+    let vc2 = UIViewController() // crypto
+    let vc3 = UIViewController() // news
+    let vc4 = UIViewController() // weather
+    let vc5 = UIViewController() // music
+    
+    override func viewDidLoad() {
         super.viewDidLoad()
-        storyboard?.instantiateViewController(withIdentifier: "some_identifier")
         configure()
         configureVC3()
         configureVC2()
     }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if tableView == self.newsTableView{
+            return newsViewModels.count
+        }
+        if tableView == self.cryptoTableView {
+            return viewModels.count
+        }
+        return 0
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if tableView == self.newsTableView{
+            newsTableView.deselectRow(at: indexPath, animated: true)
+        }
+    }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if tableView == self.newsTableView{
+            return 150
+        }
+        if tableView == self.cryptoTableView {
+            return 70
+        }
+        return 0
+    }
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if tableView == self.newsTableView{
+            guard let cell = newsTableView.dequeueReusableCell(withIdentifier: NewsTableViewCell.newsIdentifier, for: indexPath) as? NewsTableViewCell else {
+                fatalError()
+            }
+            cell.newsConfigure(with: newsViewModels[indexPath.row])
+            return cell
+        }
+        if tableView == self.cryptoTableView {
+            guard let cell = cryptoTableView.dequeueReusableCell(withIdentifier: CryptoTableViewCell.identifier, for: indexPath) as? CryptoTableViewCell else {
+                fatalError()
+            }
+            cell.configure(with: viewModels[indexPath.row])
+            return cell
+        }
+        return UITableViewCell()
+    }
+    
+
     private let newsTableView: UITableView = {
         let table = UITableView()
         table.register(UITableViewCell.self, forCellReuseIdentifier: NewsTableViewCell.newsIdentifier)
+        
         return table
-            
+        
     }()
-    @objc func newsTableView(_ newsTableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return newsViewModels.count
-    }
-    @objc(newsTableView:cellForRowAtIndexPath:) func newsTableView(_ newsTableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
-   {
-        print("Is working jdwegjyd")
-        guard let cell = newsTableView.dequeueReusableCell(withIdentifier: NewsTableViewCell.newsIdentifier, for: indexPath) as? NewsTableViewCell else {
-                fatalError()
-            }
-        cell.newsConfigure(with: newsViewModels[indexPath.row])
-        return cell
-    }
-    private func newsTableView(_ newsTableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        newsTableView.deselectRow(at: indexPath, animated: true)
-    }
-    func newsTableView(_ newsTableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        print("made it 150")
-            return 150
-    }
-    private let tableView: UITableView = {
-        let tableView = UITableView(frame: .zero, style: .grouped)
-        tableView.register(CryptoTableViewCell.self, forCellReuseIdentifier: CryptoTableViewCell.identifier)
-        return tableView
+    //    func newsTableView(_ newsTableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    //        return newsViewModels.count
+    //    }
+    //    func newsTableView(_ newsTableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
+    //    {
+    //        print("Is working jdwegjyd")
+    //        guard let cell = newsTableView.dequeueReusableCell(withIdentifier: NewsTableViewCell.newsIdentifier, for: indexPath) as? NewsTableViewCell else {
+    //            fatalError()
+    //        }
+    //        cell.newsConfigure(with: newsViewModels[indexPath.row])
+    //        return cell
+    //    }
+    //    func newsTableView(_ newsTableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    //        newsTableView.deselectRow(at: indexPath, animated: true)
+    //    }
+//    func newsTableView(_ newsTableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        return 150
+//    }
+    private let cryptoTableView: UITableView = {
+        let cryptoTableView = UITableView(frame: .zero, style: .grouped)
+        cryptoTableView.register(CryptoTableViewCell.self, forCellReuseIdentifier: CryptoTableViewCell.identifier)
+        return cryptoTableView
     }()
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        tableView.frame = vc2.view.bounds
+        cryptoTableView.frame = vc2.view.bounds
         newsTableView.frame = vc3.view.bounds
     }
-        @objc func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-            return viewModels.count
-    }
-        @objc(tableView:cellForRowAtIndexPath:) func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: CryptoTableViewCell.identifier, for: indexPath) as? CryptoTableViewCell else {
-            fatalError()
-        }
-            cell.configure(with: viewModels[indexPath.row])
-        return cell
-    }
-        
-        func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-            return 70
-        }
-        static let numberFormatter: NumberFormatter = {
-           let formatter = NumberFormatter()
-            formatter.locale = .current
-            formatter.allowsFloats = true
-            formatter.formatterBehavior = .default
-            formatter.numberStyle = .currency
-            return formatter
-        }()
-        
+//    @objc func cryptoTableView(_ cryptoTableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        return viewModels.count
+//    }
+//    @objc(cryptoTableView:cellForRowAtIndexPath:) func cryptoTableView(_ cryptoTableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        guard let cell = cryptoTableView.dequeueReusableCell(withIdentifier: CryptoTableViewCell.identifier, for: indexPath) as? CryptoTableViewCell else {
+//            fatalError()
+//        }
+//        cell.configure(with: viewModels[indexPath.row])
+//        return cell
+//    }
+    
+//    func cryptoTableView(_ cryptoTableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        return 70
+//    }
+    static let numberFormatter: NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.locale = .current
+        formatter.allowsFloats = true
+        formatter.formatterBehavior = .default
+        formatter.numberStyle = .currency
+        return formatter
+    }()
+    
     func configureVC3(){
         vc3.view.addSubview(newsTableView)
         NewsAPICaller.shared.getTopStories { [weak self] result in
@@ -154,9 +194,9 @@ class ViewController: UIViewController, VoiceOverlayDelegate, YTPlayerViewDelega
                 print("NEWS RED ALERT MF \(error)")
             }
         }
-        }
+    }
     func configureVC2() {
-        vc2.view.addSubview(tableView)
+        vc2.view.addSubview(cryptoTableView)
         APICaller.shared.getAllCryptoData{ [weak self] result in
             switch result {
             case .success(let models):
@@ -171,7 +211,7 @@ class ViewController: UIViewController, VoiceOverlayDelegate, YTPlayerViewDelega
                     )
                 })
                 DispatchQueue.main.async {
-                    self?.tableView.reloadData()
+                    self?.cryptoTableView.reloadData()
                 }
             case .failure(let error):
                 print("CRYPTO RED ALERT MF \(error)")
@@ -196,10 +236,10 @@ class ViewController: UIViewController, VoiceOverlayDelegate, YTPlayerViewDelega
         
         vc4.tabBarItem = RAMAnimatedTabBarItem(title: "Weather", image: UIImage(systemName: "cloud" ), tag: 1)
         (vc4.tabBarItem as? RAMAnimatedTabBarItem)?.animation = RAMBounceAnimation()
-
+        
         vc5.tabBarItem = RAMAnimatedTabBarItem(title: "Music", image: UIImage(systemName: "music.note" ), tag: 1)
         (vc5.tabBarItem as? RAMAnimatedTabBarItem)?.animation = RAMBounceAnimation()
-
+        
         setViewControllers([vc1, vc2, vc3, vc4, vc5], animated: false)
         
         
@@ -207,8 +247,8 @@ class ViewController: UIViewController, VoiceOverlayDelegate, YTPlayerViewDelega
         
         
         // vc2 info
-        tableView.dataSource = self
-        tableView.delegate = self
+        cryptoTableView.dataSource = self
+        cryptoTableView.delegate = self
         
         // vc3 info
         newsTableView.dataSource = self
@@ -219,9 +259,9 @@ class ViewController: UIViewController, VoiceOverlayDelegate, YTPlayerViewDelega
     }
 }
 public extension UIView {
-  //Round the corners
-  func roundCorners(){
-    let radius = bounds.maxX / 16
-    layer.cornerRadius = radius
-  }
+    //Round the corners
+    func roundCorners(){
+        let radius = bounds.maxX / 16
+        layer.cornerRadius = radius
+    }
 }
