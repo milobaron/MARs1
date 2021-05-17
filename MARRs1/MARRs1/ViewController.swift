@@ -60,16 +60,12 @@ class ViewController: UIViewController, VoiceOverlayDelegate, YTPlayerViewDelega
         })
         
     }
-//    func searchByKeyword(s: String) -> String {
-//        var results = YouTube.Search.list("id,snippet", {q; s; maxResults; 25})
-//        var item = results.items[0]
-//        var id = item.id.videoId
-//        return item.id.videoId
-//        }
     }
     class CustomTabBarController: RAMAnimatedTabBarController, UITableViewDelegate, UITableViewDataSource  {
         
         private var viewModels = [CryptoTableViewCellViewModel]()
+        private var newsViewModels = [NewsTableViewCellViewModel]()
+        
         let vc1 = UIViewController() // stocks
         let vc2 = UIViewController() // crypto
         let vc3 = UIViewController() // news
@@ -78,10 +74,33 @@ class ViewController: UIViewController, VoiceOverlayDelegate, YTPlayerViewDelega
         
         override func viewDidLoad() {
         super.viewDidLoad()
+        storyboard?.instantiateViewController(withIdentifier: "some_identifier")
         configure()
-        configureVC2()
         configureVC3()
+        configureVC2()
+    }
         
+    private let newsTableView: UITableView = {
+        let table = UITableView()
+        table.register(UITableViewCell.self, forCellReuseIdentifier: NewsTableViewCell.newsIdentifier)
+        return table
+            
+    }()
+    @objc func newsTableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return newsViewModels.count
+    }
+    @objc(newsTableView:cellForRowAtIndexPath:) func newsTableView(_ newsTableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = newsTableView.dequeueReusableCell(withIdentifier: NewsTableViewCell.newsIdentifier, for: indexPath) as? NewsTableViewCell else {
+                fatalError()
+            }
+        cell.newsConfigure(with: newsViewModels[indexPath.row])
+        return cell
+    }
+    private func newsTableView(_ newsTableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        newsTableView.deselectRow(at: indexPath, animated: true)
+    }
+    func newsTableView(_ newsTableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+            return 150
     }
     private let tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
@@ -91,6 +110,7 @@ class ViewController: UIViewController, VoiceOverlayDelegate, YTPlayerViewDelega
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         tableView.frame = vc2.view.bounds
+        newsTableView.frame = vc3.view.bounds
     }
         @objc func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
             return viewModels.count
@@ -116,12 +136,20 @@ class ViewController: UIViewController, VoiceOverlayDelegate, YTPlayerViewDelega
         }()
         
     func configureVC3(){
-        NewsAPICaller.shared.getTopStories { result in
+        vc3.view.addSubview(newsTableView)
+        NewsAPICaller.shared.getTopStories { [weak self] result in
             switch result {
-            case .success (let response):
-                break
+            case .success (let articles):
+                print("NEWS working so far")
+                self?.newsViewModels = articles.compactMap ({
+                    NewsTableViewCellViewModel(title: $0.title, subtitle: $0.description ?? "No Description", imageURL: URL(string: $0.urlToImage ?? ""))
+                })
+                
+                DispatchQueue.main.async {
+                    self?.tableView.reloadData()
+                }
             case .failure(let error):
-                print("RED ALERT MF \(error)")
+                print("NEWS RED ALERT MF \(error)")
             }
         }
         }
@@ -130,7 +158,7 @@ class ViewController: UIViewController, VoiceOverlayDelegate, YTPlayerViewDelega
         APICaller.shared.getAllCryptoData{ [weak self] result in
             switch result {
             case .success(let models):
-                print ("works so far")
+                print ("crypto works so far")
                 self?.viewModels = models.compactMap({
                     // num formatter
                     
@@ -144,14 +172,14 @@ class ViewController: UIViewController, VoiceOverlayDelegate, YTPlayerViewDelega
                     self?.tableView.reloadData()
                 }
             case .failure(let error):
-                print("RED ALERT MF \(error)")
+                print("CRYPTO RED ALERT MF \(error)")
             }
         }
     }
     func configure() {
         vc1.view.backgroundColor = .init(red: 18/255.0, green: 190/255.0, blue: 93/255.0, alpha: 1.0)
         vc2.view.backgroundColor = .init(red: 234/255.0, green: 202/255.0, blue: 46/255.0, alpha: 1.0)
-        vc3.view.backgroundColor = .systemRed
+        vc3.view.backgroundColor = .systemBackground
         vc4.view.backgroundColor = .init(red: 86/255.0, green: 158/255.0, blue: 250/255.0, alpha: 1.0)
         vc5.view.backgroundColor = .green
         
@@ -181,7 +209,8 @@ class ViewController: UIViewController, VoiceOverlayDelegate, YTPlayerViewDelega
         tableView.delegate = self
         
         // vc3 info
-        vc3.title = "News"
+        newsTableView.dataSource = self
+        newsTableView.delegate = self
         // vc4 info
         
         // vc5 info

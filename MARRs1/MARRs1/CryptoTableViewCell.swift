@@ -11,6 +11,7 @@ struct CryptoTableViewCellViewModel {
     let name: String
     let symbol: String
     let price: String
+
 }
 
 class CryptoTableViewCell: UITableViewCell {
@@ -28,7 +29,7 @@ class CryptoTableViewCell: UITableViewCell {
     } ()
     private let priceLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .systemBlue
+        label.textColor = .systemGreen
         label.textAlignment = .right
         label.font = .systemFont(ofSize: 22, weight: .semibold)
         return label

@@ -15,9 +15,9 @@ final class NewsAPICaller {
     struct Article: Codable {
         let source: Source
         let title: String
-        let description: String
-        let url: String
-        let urlToImage: String
+        let description: String?
+        let url: String?
+        let urlToImage: String?
         let publishedAt: String
     }
     struct Source: Codable {
@@ -27,9 +27,9 @@ final class NewsAPICaller {
         static let topHeadlinesURL = URL(string: "https://newsapi.org/v2/everything?q=Apple&from=2021-05-16&sortBy=popularity&apiKey=8a4c432fe4d9472d9f4addbfc6eb5e1e")
     }
     private init() {}
-    public func getTopStories(completion: @escaping (Result<[String], Error>) -> Void) {
-        guard let url = Constants.topHeadlinesURL
-        else {
+    
+    public func getTopStories(completion: @escaping (Result<[Article], Error>) -> Void) {
+        guard let url = Constants.topHeadlinesURL else {
             return
         }
         
@@ -38,10 +38,12 @@ final class NewsAPICaller {
                 completion(.failure(error))
             }
             else if let data = data {
+                
                 do {
-                    let result = try JSONDecoder().decode(String.self, from: data)
+                    let result = try JSONDecoder().decode(APIResponse.self, from: data)
                    
-                    print(result)
+                    print("Articles \(result.articles.count)")
+                    completion(.success(result.articles))
                 }
                 catch {
                     completion(.failure(error))
