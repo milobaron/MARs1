@@ -24,10 +24,13 @@
                                     <constraint firstAttribute="height" constant="300" id="1ZT-Iy-U1D"/>
                                 </constraints>
                             </imageView>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="By Mike, Ava, and Rohan" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="htS-eL-H3C">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="By Mike, Ava, and Rohan" textAlignment="center" minimumFontSize="11" translatesAutoresizingMaskIntoConstraints="NO" id="htS-eL-H3C">
                                 <rect key="frame" x="112" y="814" width="191" height="20.5"/>
                                 <color key="backgroundColor" red="0.066666666666666666" green="0.28627450980392155" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <color key="tintColor" red="0.066666666669999999" green="0.28627450980000002" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20.5" id="SeP-Ts-7f4"/>
+                                </constraints>
                                 <color key="textColor" systemColor="secondarySystemBackgroundColor"/>
                                 <fontDescription key="fontDescription" name="Optima-Regular" family="Optima" pointSize="16"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -36,6 +39,9 @@
                                 <rect key="frame" x="64" y="594" width="286" height="60"/>
                                 <color key="backgroundColor" red="0.066666666666666666" green="0.28627450980392155" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <color key="tintColor" red="0.066666666669999999" green="0.28627450980000002" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="K65-RM-4JB"/>
+                                </constraints>
                                 <color key="textColor" systemColor="secondarySystemBackgroundColor"/>
                                 <fontDescription key="fontDescription" name="Optima-Regular" family="Optima" pointSize="49"/>
                                 <textInputTraits key="textInputTraits"/>

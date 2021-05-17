@@ -79,17 +79,18 @@ class ViewController: UIViewController, VoiceOverlayDelegate, YTPlayerViewDelega
         configureVC3()
         configureVC2()
     }
-        
     private let newsTableView: UITableView = {
         let table = UITableView()
         table.register(UITableViewCell.self, forCellReuseIdentifier: NewsTableViewCell.newsIdentifier)
         return table
             
     }()
-    @objc func newsTableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    @objc func newsTableView(_ newsTableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return newsViewModels.count
     }
-    @objc(newsTableView:cellForRowAtIndexPath:) func newsTableView(_ newsTableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    @objc(newsTableView:cellForRowAtIndexPath:) func newsTableView(_ newsTableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
+   {
+        print("Is working jdwegjyd")
         guard let cell = newsTableView.dequeueReusableCell(withIdentifier: NewsTableViewCell.newsIdentifier, for: indexPath) as? NewsTableViewCell else {
                 fatalError()
             }
@@ -100,6 +101,7 @@ class ViewController: UIViewController, VoiceOverlayDelegate, YTPlayerViewDelega
         newsTableView.deselectRow(at: indexPath, animated: true)
     }
     func newsTableView(_ newsTableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        print("made it 150")
             return 150
     }
     private let tableView: UITableView = {
@@ -146,7 +148,7 @@ class ViewController: UIViewController, VoiceOverlayDelegate, YTPlayerViewDelega
                 })
                 
                 DispatchQueue.main.async {
-                    self?.tableView.reloadData()
+                    self?.newsTableView.reloadData()
                 }
             case .failure(let error):
                 print("NEWS RED ALERT MF \(error)")
