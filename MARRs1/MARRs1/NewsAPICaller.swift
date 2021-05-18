@@ -10,7 +10,7 @@ import Foundation
 final class NewsAPICaller {
     static let shared = NewsAPICaller()
     struct Constants {
-        static let topHeadlinesURL = URL(string: "https://newsapi.org/v2/everything?q=Apple&from=2021-05-16&sortBy=popularity&apiKey=8a4c432fe4d9472d9f4addbfc6eb5e1e")
+        static let topHeadlinesURL = URL(string: "https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=8a4c432fe4d9472d9f4addbfc6eb5e1e")
     }
     private init() {}
     
