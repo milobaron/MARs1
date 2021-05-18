@@ -54,7 +54,6 @@ class ViewController: UIViewController, VoiceOverlayDelegate, YTPlayerViewDelega
                 print("Final text: \(text)")
                 self.playerView.load(withVideoId: "_S7r9MCc2ts", playerVars: ["playsinline" : 1])
             }
-            
         }, errorHandler: { error in
             
         })
@@ -71,6 +70,18 @@ class CustomTabBarController: RAMAnimatedTabBarController, UITableViewDelegate, 
     let vc4 = UIViewController() // weather
     let vc5 = UIViewController() // music
     
+    private let newsTableView: UITableView = {
+        let table = UITableView()
+        table.register(NewsTableViewCell.self, forCellReuseIdentifier: NewsTableViewCell.identifier)
+        return table
+        
+    }()
+    
+    private let cryptoTableView: UITableView = {
+        let cryptoTableView = UITableView(frame: .zero, style: .grouped)
+        cryptoTableView.register(CryptoTableViewCell.self, forCellReuseIdentifier: CryptoTableViewCell.identifier)
+        return cryptoTableView
+    }()
     override func viewDidLoad() {
         super.viewDidLoad()
         configure()
@@ -88,7 +99,7 @@ class CustomTabBarController: RAMAnimatedTabBarController, UITableViewDelegate, 
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if tableView == self.newsTableView{
-            newsTableView.deselectRow(at: indexPath, animated: true)
+            tableView.deselectRow(at: indexPath, animated: true)
         }
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -102,11 +113,13 @@ class CustomTabBarController: RAMAnimatedTabBarController, UITableViewDelegate, 
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if tableView == self.newsTableView{
-            guard let cell = newsTableView.dequeueReusableCell(withIdentifier: NewsTableViewCell.newsIdentifier, for: indexPath) as? NewsTableViewCell else {
-                fatalError()
+            guard let cell = newsTableView.dequeueReusableCell(withIdentifier: NewsTableViewCell.identifier,
+                                                               for: indexPath
+            ) as? NewsTableViewCell else {
+                fatalError() 
             }
             cell.newsConfigure(with: newsViewModels[indexPath.row])
-            return cell
+            return NewsTableViewCell()
         }
         if tableView == self.cryptoTableView {
             guard let cell = cryptoTableView.dequeueReusableCell(withIdentifier: CryptoTableViewCell.identifier, for: indexPath) as? CryptoTableViewCell else {
@@ -118,56 +131,13 @@ class CustomTabBarController: RAMAnimatedTabBarController, UITableViewDelegate, 
         return UITableViewCell()
     }
     
-
-    private let newsTableView: UITableView = {
-        let table = UITableView()
-        table.register(UITableViewCell.self, forCellReuseIdentifier: NewsTableViewCell.newsIdentifier)
-        
-        return table
-        
-    }()
-    //    func newsTableView(_ newsTableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    //        return newsViewModels.count
-    //    }
-    //    func newsTableView(_ newsTableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
-    //    {
-    //        print("Is working jdwegjyd")
-    //        guard let cell = newsTableView.dequeueReusableCell(withIdentifier: NewsTableViewCell.newsIdentifier, for: indexPath) as? NewsTableViewCell else {
-    //            fatalError()
-    //        }
-    //        cell.newsConfigure(with: newsViewModels[indexPath.row])
-    //        return cell
-    //    }
-    //    func newsTableView(_ newsTableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    //        newsTableView.deselectRow(at: indexPath, animated: true)
-    //    }
-//    func newsTableView(_ newsTableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return 150
-//    }
-    private let cryptoTableView: UITableView = {
-        let cryptoTableView = UITableView(frame: .zero, style: .grouped)
-        cryptoTableView.register(CryptoTableViewCell.self, forCellReuseIdentifier: CryptoTableViewCell.identifier)
-        return cryptoTableView
-    }()
+    
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         cryptoTableView.frame = vc2.view.bounds
         newsTableView.frame = vc3.view.bounds
     }
-//    @objc func cryptoTableView(_ cryptoTableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return viewModels.count
-//    }
-//    @objc(cryptoTableView:cellForRowAtIndexPath:) func cryptoTableView(_ cryptoTableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        guard let cell = cryptoTableView.dequeueReusableCell(withIdentifier: CryptoTableViewCell.identifier, for: indexPath) as? CryptoTableViewCell else {
-//            fatalError()
-//        }
-//        cell.configure(with: viewModels[indexPath.row])
-//        return cell
-//    }
-    
-//    func cryptoTableView(_ cryptoTableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return 70
-//    }
     static let numberFormatter: NumberFormatter = {
         let formatter = NumberFormatter()
         formatter.locale = .current

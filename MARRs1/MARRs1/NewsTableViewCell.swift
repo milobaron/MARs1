@@ -22,7 +22,7 @@ class NewsTableViewCellViewModel {
     }
 }
 class NewsTableViewCell: UITableViewCell {
-    static let newsIdentifier = "NewsTableViewCell"
+    static let identifier = "NewsTableViewCell"
     
     private let newsTitleLabel: UILabel = {
         let label = UILabel ()
