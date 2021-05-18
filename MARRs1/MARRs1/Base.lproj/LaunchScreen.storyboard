@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="VAI-tN-PhK">
-                                <rect key="frame" x="30" y="94" width="354" height="327.5"/>
+                                <rect key="frame" x="30" y="94" width="354" height="792"/>
                                 <color key="backgroundColor" red="0.066666666666666666" green="0.28627450980392155" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <color key="tintColor" red="0.066666666666666666" green="0.28627450980392155" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
@@ -25,7 +25,7 @@
                                 </constraints>
                             </imageView>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="By Mike, Ava, and Rohan" textAlignment="center" minimumFontSize="11" translatesAutoresizingMaskIntoConstraints="NO" id="htS-eL-H3C">
-                                <rect key="frame" x="112" y="791.5" width="191" height="20.5"/>
+                                <rect key="frame" x="112" y="1256" width="191" height="20.5"/>
                                 <color key="backgroundColor" red="0.066666666666666666" green="0.28627450980392155" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <color key="tintColor" red="0.066666666669999999" green="0.28627450980000002" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
@@ -36,7 +36,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="MARs1 " textAlignment="center" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="AJD-Up-anv">
-                                <rect key="frame" x="64" y="571.5" width="286" height="60"/>
+                                <rect key="frame" x="64" y="1036" width="286" height="60"/>
                                 <color key="backgroundColor" red="0.066666666666666666" green="0.28627450980392155" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <color key="tintColor" red="0.066666666669999999" green="0.28627450980000002" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
