@@ -12,6 +12,7 @@ import GoogleAPIClientForREST
 import GoogleSignIn
 import RMYouTubeExtractor
 import RAMAnimatedTabBarController
+import SafariServices
 
 class ViewController: UIViewController, VoiceOverlayDelegate, YTPlayerViewDelegate, GIDSignInDelegate, GIDSignInUIDelegate {
     
@@ -59,9 +60,15 @@ class ViewController: UIViewController, VoiceOverlayDelegate, YTPlayerViewDelega
         })
     }
 }
-class CustomTabBarController: RAMAnimatedTabBarController, UITableViewDelegate, UITableViewDataSource  {
-    
-    private var viewModels = [CryptoTableViewCellViewModel]()
+class CustomTabBarController: RAMAnimatedTabBarController, UITableViewDelegate, UITableViewDataSource {
+    private let newsTableView: UITableView = {
+        let table = UITableView()
+        table.register(NewsTableViewCell.self, forCellReuseIdentifier: NewsTableViewCell.identifier)
+        return table
+        
+    }()
+    private var articles = [Article]()
+    private var cryptoViewModels = [CryptoTableViewCellViewModel]()
     private var newsViewModels = [NewsTableViewCellViewModel]()
     
     let vc1 = UIViewController() // stocks
@@ -69,13 +76,6 @@ class CustomTabBarController: RAMAnimatedTabBarController, UITableViewDelegate, 
     let vc3 = UIViewController() // news
     let vc4 = UIViewController() // weather
     let vc5 = UIViewController() // music
-    
-    private let newsTableView: UITableView = {
-        let table = UITableView()
-        table.register(NewsTableViewCell.self, forCellReuseIdentifier: NewsTableViewCell.identifier)
-        return table
-        
-    }()
     
     private let cryptoTableView: UITableView = {
         let cryptoTableView = UITableView(frame: .zero, style: .grouped)
@@ -93,14 +93,22 @@ class CustomTabBarController: RAMAnimatedTabBarController, UITableViewDelegate, 
             return newsViewModels.count
         }
         if tableView == self.cryptoTableView {
-            return viewModels.count
+            return cryptoViewModels.count
         }
         return 0
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if tableView == self.newsTableView{
             tableView.deselectRow(at: indexPath, animated: true)
+            let article = articles[indexPath.row]
+            
+            guard let url = URL(string: article.url ?? "") else {
+                return
+            }
+            let vc = SFSafariViewController(url: url)
+            present(vc, animated: true)
         }
+        
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if tableView == self.newsTableView{
@@ -125,14 +133,11 @@ class CustomTabBarController: RAMAnimatedTabBarController, UITableViewDelegate, 
             guard let cell = cryptoTableView.dequeueReusableCell(withIdentifier: CryptoTableViewCell.identifier, for: indexPath) as? CryptoTableViewCell else {
                 fatalError()
             }
-            cell.configure(with: viewModels[indexPath.row])
+            cell.configure(with: cryptoViewModels[indexPath.row])
             return cell
         }
         return UITableViewCell()
     }
-    
-    
-    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         cryptoTableView.frame = vc2.view.bounds
@@ -151,7 +156,9 @@ class CustomTabBarController: RAMAnimatedTabBarController, UITableViewDelegate, 
         vc3.view.addSubview(newsTableView)
         NewsAPICaller.shared.getTopStories { [weak self] result in
             switch result {
+           
             case .success (let articles):
+                self?.articles = articles
                 print("NEWS working so far")
                 self?.newsViewModels = articles.compactMap ({
                     NewsTableViewCellViewModel(title: $0.title, subtitle: $0.description ?? "No Description", imageURL: URL(string: $0.urlToImage ?? ""))
@@ -171,7 +178,7 @@ class CustomTabBarController: RAMAnimatedTabBarController, UITableViewDelegate, 
             switch result {
             case .success(let models):
                 print ("crypto works so far")
-                self?.viewModels = models.compactMap({
+                self?.cryptoViewModels = models.compactMap({
                     // num formatter
                     
                     let price = $0.price_usd ?? 0

@@ -9,20 +9,6 @@ import Foundation
 
 final class NewsAPICaller {
     static let shared = NewsAPICaller()
-    struct APIResponse: Codable {
-        let articles: [Article]
-    }
-    struct Article: Codable {
-        let source: Source
-        let title: String
-        let description: String?
-        let url: String?
-        let urlToImage: String?
-        let publishedAt: String
-    }
-    struct Source: Codable {
-        let name: String
-    }
     struct Constants {
         static let topHeadlinesURL = URL(string: "https://newsapi.org/v2/everything?q=Apple&from=2021-05-16&sortBy=popularity&apiKey=8a4c432fe4d9472d9f4addbfc6eb5e1e")
     }
@@ -53,4 +39,17 @@ final class NewsAPICaller {
         task.resume()
     }
 }
-
+struct APIResponse: Codable {
+    let articles: [Article]
+}
+public struct Article: Codable {
+    let source: Source
+    let title: String
+    let description: String?
+    let url: String?
+    let urlToImage: String?
+    let publishedAt: String
+}
+struct Source: Codable {
+    let name: String
+}
