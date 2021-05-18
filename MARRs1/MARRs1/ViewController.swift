@@ -179,9 +179,11 @@ class CustomTabBarController: RAMAnimatedTabBarController, UITableViewDelegate, 
             case .success(let models):
                 print ("crypto works so far")
                 self?.cryptoViewModels = models.compactMap({
-                    // num formatter
-                    
-                    let price = $0.price_usd ?? 0
+                    var price = $0.price_usd ?? 0
+                    if (price>70000){
+                        print("greater than 1 mil")
+                        price=0
+                    }
                     let formatter = CustomTabBarController.numberFormatter
                     let priceString = formatter.string(from: NSNumber(value: price))
                     return CryptoTableViewCellViewModel(name: $0.name ?? "N/A", symbol: $0.asset_id, price: priceString ?? "N/A"

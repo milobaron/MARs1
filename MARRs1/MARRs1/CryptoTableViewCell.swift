@@ -60,6 +60,8 @@ class CryptoTableViewCell: UITableViewCell {
         nameLabel.text = viewModel.name
         symbolLabel.text = viewModel.symbol
         priceLabel.text = viewModel.price
+        
+        
     }
     }
 

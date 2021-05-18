@@ -28,19 +28,18 @@
                                 <rect key="frame" x="64" y="812" width="286" height="60"/>
                                 <color key="backgroundColor" red="0.066666666669999999" green="0.28627450980000002" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <color key="tintColor" red="0.066666666669999999" green="0.28627450980000002" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <color key="textColor" systemColor="secondarySystemBackgroundColor"/>
                                 <fontDescription key="fontDescription" name="Optima-Regular" family="Optima" pointSize="49"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gxy-ZI-b7Q">
                                 <rect key="frame" x="70" y="662" width="274" height="90"/>
-                                <color key="backgroundColor" red="0.38140391654708761" green="0.5805031912667411" blue="0.70160794420307182" alpha="0.55821005713860716" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="90" id="5sj-dd-TSS"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Optima-Regular" family="Optima" pointSize="34"/>
                                 <state key="normal" title="Main Menu">
-                                    <color key="titleColor" systemColor="secondarySystemBackgroundColor"/>
+                                    <color key="titleColor" systemColor="labelColor"/>
                                 </state>
                                 <connections>
                                     <action selector="didPressButton" destination="N7G-kS-8lQ" eventType="touchUpInside" id="WPW-ei-CEF"/>
@@ -76,6 +75,9 @@
     </scenes>
     <resources>
         <image name="logo" width="792" height="792"/>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="secondarySystemBackgroundColor">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

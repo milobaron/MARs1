@@ -11,7 +11,7 @@ final class APICaller {
     static let shared = APICaller()
     
     private struct Constants {
-        static let apiKey = "2AFC2D13-A14B-44CA-AD1E-A891C042EAB4"
+        static let apiKey = "31EABC3C-EB7E-41D6-8D49-4AE02040EFD5"
         static let assetsEndpoint = "https://rest.coinapi.io/v1/assets/"
     }
     private init() {}
@@ -27,8 +27,17 @@ final class APICaller {
             do {
                 // decode response
                 let cryptos = try JSONDecoder().decode([Crypto].self, from: data)
-                completion(.success( cryptos.sorted {first, second -> Bool in
-                                    return first.price_usd ?? 0 > second.price_usd ?? 0
+                completion(.success(
+                            cryptos.sorted {first, second -> Bool in
+                                var new1 = first
+                                var new2 = second
+                    if (first.price_usd ?? 0 > 44000){
+                        new1.price_usd = 0
+                    }
+                    if (second.price_usd ?? 0 > 44000){
+                        new2.price_usd = 0
+                    }
+                                    return new1.price_usd ?? 0 > new2.price_usd ?? 0
 
                                 }))
             }
