@@ -13,8 +13,10 @@ import GoogleSignIn
 import RMYouTubeExtractor
 import RAMAnimatedTabBarController
 import SafariServices
+import CoreLocation
 
-class ViewController: UIViewController, VoiceOverlayDelegate, YTPlayerViewDelegate, GIDSignInDelegate, GIDSignInUIDelegate {
+
+class ViewController: UIViewController, VoiceOverlayDelegate, YTPlayerViewDelegate, GIDSignInDelegate, GIDSignInUIDelegate, UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate {
     
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
     }
@@ -31,10 +33,47 @@ class ViewController: UIViewController, VoiceOverlayDelegate, YTPlayerViewDelega
     @IBOutlet weak var viewWait: UIView!
     @IBOutlet weak var txtSearch: UITextField!
     
+    //AVA'S CODE:
+    @IBOutlet var table: UITableView!
+    var models = [Weather]()
+    
+    let locationManager=CLLocationManager()
+  
+    var coordinates: CLLocation?
+    
+    func setupLocation(){
+        locationManager.delegate = self
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.startUpdatingLocation()
+    }
+    
     override func viewDidLoad(){
         super.viewDidLoad()
         button1.roundCorners()
+        
+        //Register 2 cells
+        table.register(HourlyTableViewCell.nib(), forCellReuseIdentifier: HourlyTableViewCell.identifier)
+        table.register(WeatherTableViewCell.nib(), forCellReuseIdentifier: WeatherTableViewCell.identifier)
+        
+        table.delegate = self
+        table.dataSource = self
     }
+    
+    //Location
+    
+    
+    
+    //Table
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return models.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        return UITableViewCell()
+    }
+    
+    
     func playerViewDidBecomeReady(_ playerView: YTPlayerView) {
         playerView.playVideo()
     }
@@ -60,6 +99,12 @@ class ViewController: UIViewController, VoiceOverlayDelegate, YTPlayerViewDelega
         })
     }
 }
+
+struct Weather {
+    
+}
+
+
 class CustomTabBarController: RAMAnimatedTabBarController, UITableViewDelegate, UITableViewDataSource {
     private let newsTableView: UITableView = {
         let table = UITableView()
