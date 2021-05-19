@@ -16,7 +16,9 @@ import SafariServices
 import CoreLocation
 
 
-class ViewController: UIViewController, VoiceOverlayDelegate, YTPlayerViewDelegate, GIDSignInDelegate, GIDSignInUIDelegate, UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate {
+class ViewController: UIViewController, VoiceOverlayDelegate, YTPlayerViewDelegate, GIDSignInDelegate, GIDSignInUIDelegate {
+    
+    
     
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
     }
@@ -33,30 +35,13 @@ class ViewController: UIViewController, VoiceOverlayDelegate, YTPlayerViewDelega
     @IBOutlet weak var viewWait: UIView!
     @IBOutlet weak var txtSearch: UITextField!
     
-    //AVA'S CODE:
-    @IBOutlet var table: UITableView!
-    var models = [Weather]()
-    
-    let locationManager=CLLocationManager()
-  
-    var coordinates: CLLocation?
-    
-    func setupLocation(){
-        locationManager.delegate = self
-        locationManager.requestWhenInUseAuthorization()
-        locationManager.startUpdatingLocation()
-    }
     
     override func viewDidLoad(){
         super.viewDidLoad()
         button1.roundCorners()
         
         //Register 2 cells
-        table.register(HourlyTableViewCell.nib(), forCellReuseIdentifier: HourlyTableViewCell.identifier)
-        table.register(WeatherTableViewCell.nib(), forCellReuseIdentifier: WeatherTableViewCell.identifier)
         
-        table.delegate = self
-        table.dataSource = self
     }
     
     //Location
@@ -65,13 +50,6 @@ class ViewController: UIViewController, VoiceOverlayDelegate, YTPlayerViewDelega
     
     //Table
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return models.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
-    }
     
     
     func playerViewDidBecomeReady(_ playerView: YTPlayerView) {
@@ -100,22 +78,34 @@ class ViewController: UIViewController, VoiceOverlayDelegate, YTPlayerViewDelega
     }
 }
 
-struct Weather {
-    
-}
 
 
-class CustomTabBarController: RAMAnimatedTabBarController, UITableViewDelegate, UITableViewDataSource {
+
+class CustomTabBarController: RAMAnimatedTabBarController, UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate, UISearchBarDelegate {
     private let newsTableView: UITableView = {
         let table = UITableView()
         table.register(NewsTableViewCell.self, forCellReuseIdentifier: NewsTableViewCell.identifier)
         return table
         
     }()
+    private let newsSearchVC = UISearchController(searchResultsController: nil)
+    
     private var articles = [Article]()
     private var cryptoViewModels = [CryptoTableViewCellViewModel]()
     private var newsViewModels = [NewsTableViewCellViewModel]()
+    var weatherViewModels = [Weather]()
+    @IBOutlet var weatherTableView: UITableView!
     
+    
+    let locationManager=CLLocationManager()
+    
+    var coordinates: CLLocation?
+    
+    func setupLocation(){
+        locationManager.delegate = self
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.startUpdatingLocation()
+    }
     let vc1 = UIViewController() // stocks
     let vc2 = UIViewController() // crypto
     let vc3 = UIViewController() // news
@@ -130,8 +120,9 @@ class CustomTabBarController: RAMAnimatedTabBarController, UITableViewDelegate, 
     override func viewDidLoad() {
         super.viewDidLoad()
         configure()
-        configureVC3()
         configureVC2()
+        configureVC3()
+        configureVC4()
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView == self.newsTableView{
@@ -139,6 +130,9 @@ class CustomTabBarController: RAMAnimatedTabBarController, UITableViewDelegate, 
         }
         if tableView == self.cryptoTableView {
             return cryptoViewModels.count
+        }
+        if tableView == self.weatherTableView {
+            return weatherViewModels.count
         }
         return 0
     }
@@ -181,6 +175,9 @@ class CustomTabBarController: RAMAnimatedTabBarController, UITableViewDelegate, 
             cell.configure(with: cryptoViewModels[indexPath.row])
             return cell
         }
+        if tableView == self.newsTableView {
+            return UITableViewCell()
+        }
         return UITableViewCell()
     }
     override func viewDidLayoutSubviews() {
@@ -196,12 +193,21 @@ class CustomTabBarController: RAMAnimatedTabBarController, UITableViewDelegate, 
         formatter.numberStyle = .currency
         return formatter
     }()
-    
+    func createSearchBar(){
+        vc3.navigationItem.searchController = newsSearchVC
+        newsSearchVC.searchBar.delegate = self
+        
+    }
+    func configureVC4(){
+//        weatherTableView.register(HourlyTableViewCell.nib(), forCellReuseIdentifier: HourlyTableViewCell.identifier)
+//        weatherTableView.register(WeatherTableViewCell.nib(), forCellReuseIdentifier: WeatherTableViewCell.identifier)
+        
+    }
     func configureVC3(){
         vc3.view.addSubview(newsTableView)
         NewsAPICaller.shared.getTopStories { [weak self] result in
             switch result {
-           
+            
             case .success (let articles):
                 self?.articles = articles
                 print("NEWS working so far")
@@ -216,7 +222,9 @@ class CustomTabBarController: RAMAnimatedTabBarController, UITableViewDelegate, 
                 print("NEWS RED ALERT MF \(error)")
             }
         }
+        createSearchBar()
     }
+    
     func configureVC2() {
         vc2.view.addSubview(cryptoTableView)
         APICaller.shared.getAllCryptoData{ [weak self] result in
@@ -273,13 +281,19 @@ class CustomTabBarController: RAMAnimatedTabBarController, UITableViewDelegate, 
         // vc2 info
         cryptoTableView.dataSource = self
         cryptoTableView.delegate = self
-        
         // vc3 info
         newsTableView.dataSource = self
         newsTableView.delegate = self
         // vc4 info
-        
+//        weatherTableView.delegate = self
+//        weatherTableView.dataSource = self
         // vc5 info
+    }
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        guard let text = searchBar.text, !text.isEmpty else {
+            return
+        }
+        print(text)
     }
 }
 public extension UIView {
@@ -288,4 +302,8 @@ public extension UIView {
         let radius = bounds.maxX / 16
         layer.cornerRadius = radius
     }
+    
+}
+struct Weather {
+    
 }
