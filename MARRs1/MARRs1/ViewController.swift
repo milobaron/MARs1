@@ -18,8 +18,6 @@ import CoreLocation
 
 class ViewController: UIViewController, VoiceOverlayDelegate, YTPlayerViewDelegate, GIDSignInDelegate, GIDSignInUIDelegate {
     
-    
-    
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
     }
     
@@ -39,19 +37,8 @@ class ViewController: UIViewController, VoiceOverlayDelegate, YTPlayerViewDelega
     override func viewDidLoad(){
         super.viewDidLoad()
         button1.roundCorners()
-        
-        //Register 2 cells
-        
     }
-    
-    //Location
-    
-    
-    
-    //Table
-    
-    
-    
+
     func playerViewDidBecomeReady(_ playerView: YTPlayerView) {
         playerView.playVideo()
     }
@@ -93,19 +80,53 @@ class CustomTabBarController: RAMAnimatedTabBarController, UITableViewDelegate, 
     private var articles = [Article]()
     private var cryptoViewModels = [CryptoTableViewCellViewModel]()
     private var newsViewModels = [NewsTableViewCellViewModel]()
-    var weatherViewModels = [Weather]()
-    @IBOutlet var weatherTableView: UITableView!
+    var weatherViewModels = [DailyWeatherEntry]()
+
+    private let weatherTableView: UITableView = {
+        let table = UITableView()
+        table.register(WeatherTableViewCell.self, forCellReuseIdentifier: WeatherTableViewCell.identifier)
+        table.register(HourlyTableViewCell.self, forCellReuseIdentifier: HourlyTableViewCell.identifier)
+        return table
+        
+    }()
     
-    
+    //Location stuff
     let locationManager=CLLocationManager()
-    
-    var coordinates: CLLocation?
+    var currentLocation: CLLocation?
     
     func setupLocation(){
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
     }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if !locations.isEmpty,currentLocation == nil{
+            currentLocation = locations.first
+            locationManager.stopUpdatingLocation()
+            requestWeatherForLocation()
+        }
+    }
+    
+    func requestWeatherForLocation(){
+        guard let currentLocation = currentLocation else{
+            return
+        }
+        let long = currentLocation.coordinate.longitude
+        let lat = currentLocation.coordinate.latitude
+        
+        //add in stuff with url here
+        
+        //Validation
+        
+        //Convert data to models/some object
+        
+        //update use interface
+        
+        print ("\(long) | \(lat)")
+    }
+    //end location stuff
+    
     let vc1 = UIViewController() // stocks
     let vc2 = UIViewController() // crypto
     let vc3 = UIViewController() // news
@@ -175,7 +196,15 @@ class CustomTabBarController: RAMAnimatedTabBarController, UITableViewDelegate, 
             cell.configure(with: cryptoViewModels[indexPath.row])
             return cell
         }
+        if tableView == self.weatherTableView {
+            let cell=tableView.dequeueReusableCell(withIdentifier: WeatherTableViewCell.identifier, for: indexPath) as! WeatherTableViewCell
+            cell.configure(with: weatherViewModels[indexPath.row])
+            return cell
+        }
         if tableView == self.newsTableView {
+            return UITableViewCell()
+        }
+        if tableView == self.weatherTableView{
             return UITableViewCell()
         }
         return UITableViewCell()
@@ -199,8 +228,8 @@ class CustomTabBarController: RAMAnimatedTabBarController, UITableViewDelegate, 
         
     }
     func configureVC4(){
-//        weatherTableView.register(HourlyTableViewCell.nib(), forCellReuseIdentifier: HourlyTableViewCell.identifier)
-//        weatherTableView.register(WeatherTableViewCell.nib(), forCellReuseIdentifier: WeatherTableViewCell.identifier)
+ //       weatherTableView.register(HourlyTableViewCell.nib(), forCellReuseIdentifier: HourlyTableViewCell.identifier)
+ //       weatherTableView.register(WeatherTableViewCell.nib(), forCellReuseIdentifier: WeatherTableViewCell.identifier)
         
     }
     func configureVC3(){
@@ -285,8 +314,8 @@ class CustomTabBarController: RAMAnimatedTabBarController, UITableViewDelegate, 
         newsTableView.dataSource = self
         newsTableView.delegate = self
         // vc4 info
-//        weatherTableView.delegate = self
-//        weatherTableView.dataSource = self
+        weatherTableView.delegate = self
+        weatherTableView.dataSource = self
         // vc5 info
     }
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -304,6 +333,28 @@ public extension UIView {
     }
     
 }
-struct Weather {
+
+//around 20 min mark in video
+//basically just go in and create a bunch of struct objects that align with the arguments in the api
+//currently, hourly, and daily types - each have a bunch of stuff, see 20-22 min on video
+struct WeatherResponse: Codable {
+    let currently: CurrentWeather
+    let hourly: HourlyWeather
+    let daily: DailyWeather
+}
+struct CurrentWeather: Codable {
+    
+}
+struct DailyWeather: Codable {
+    let data: [DailyWeatherEntry]
+    //have array of data
+}
+struct DailyWeatherEntry: Codable {
+    
+}
+struct HourlyWeather: Codable {
+    //have array of data
+}
+struct HourlyWeatherEntry: Codable {
     
 }
